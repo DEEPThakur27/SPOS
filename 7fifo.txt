@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class FIFO {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the number of pages here - ");
+        int n = scanner.nextInt();
+
+        List<Integer> pages = new ArrayList<>();
+        System.out.println("Enter the page numbers here - ");
+        for (int i = 0; i < n; i++) {
+            int x = scanner.nextInt();
+            pages.add(x);
+        }
+
+        System.out.println("Enter the capacity here - ");
+        int capacity = scanner.nextInt();
+        List<Integer> memory = new ArrayList<>();
+
+        int ph = 0;
+        int pf = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (memory.contains(pages.get(i))) {
+                memory.remove(memory.indexOf(pages.get(i)));
+                memory.add(pages.get(i));
+                ph++;
+            } else {
+                pf++;
+                if (memory.size() < capacity) {
+                    memory.add(pages.get(i));
+                } else {
+                    memory.remove(0);
+                    memory.add(pages.get(i));
+                }
+            }
+        }
+
+        System.out.println("Number of page hits are: " + ph);
+        System.out.println("Number of page faults are: " + pf);
+    }
+}
